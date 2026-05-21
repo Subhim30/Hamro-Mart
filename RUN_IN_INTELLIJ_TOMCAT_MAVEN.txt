@@ -1,0 +1,89 @@
+HAMROMART - IntelliJ + Maven + Tomcat 10.1 Setup
+================================================
+
+This project is already converted for Jakarta/Tomcat 10.1.
+
+REQUIREMENTS
+------------
+1. JDK 17
+2. IntelliJ IDEA
+3. Apache Tomcat 10.1.x
+4. MySQL Server running on localhost:3306
+5. Maven support enabled in IntelliJ
+
+DATABASE
+--------
+The project uses this database:
+    hamromart_db
+
+Database connection file:
+    src/main/java/com/hamromart/utils/DatabaseConnection.java
+
+Default local MySQL settings in the project:
+    username: root
+    password: empty
+
+If your MySQL root password is different, update this line:
+    private static final String PASSWORD = "";
+
+The app has a startup listener that creates the database/tables and seeds data automatically:
+    src/main/java/com/hamromart/utils/DatabaseBootstrapListener.java
+
+You can also manually run:
+    sql/setup_schema.sql
+    sql/seed.sql
+
+LOGIN DETAILS
+-------------
+Admin login:
+    email: admin@hamromart.com
+    password: admin123
+
+Customer login:
+    email: rubina@gmail.com
+    password: user123
+
+IMPORTANT: login uses EMAIL, not username.
+
+INTELLIJ RUN STEPS
+------------------
+1. Extract this ZIP.
+2. Open IntelliJ IDEA.
+3. Click File > Open.
+4. Select the extracted hamromart folder.
+5. Wait for Maven to download dependencies.
+6. Go to File > Project Structure:
+   - Project SDK: JDK 17
+   - Project language level: 17
+7. Go to Run > Edit Configurations.
+8. Click + and choose Tomcat Server > Local.
+9. Select your Tomcat 10.1 installation.
+10. Go to Deployment tab.
+11. Click + > Artifact.
+12. Select:
+        hamromart:war exploded
+13. Set Application context to:
+        /hamromart
+14. Run Tomcat.
+15. Open:
+        http://localhost:8080/hamromart/
+
+MAVEN PACKAGE COMMAND
+---------------------
+If Maven is installed, you can build with:
+    mvn clean package
+
+Then deploy:
+    target/hamromart.war
+
+to Tomcat 10.1.
+
+WHAT WAS UPDATED
+----------------
+- javax.servlet imports converted to jakarta.servlet imports.
+- Old Java EE dependencies replaced with Jakarta dependencies.
+- JSTL updated for Tomcat 10+.
+- JSP JSTL taglib URI changed to jakarta.tags.core.
+- web.xml updated to Jakarta Servlet 6.0 schema.
+- Old tomcat7 Maven plugin removed because it is not suitable for Jakarta/Tomcat 10.1.
+- WAR final name set to hamromart.
