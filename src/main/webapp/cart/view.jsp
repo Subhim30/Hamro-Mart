@@ -1,10 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
+<script type="text/javascript">
+    const contextPath = "${pageContext.request.contextPath}";
+</script>
+
 <jsp:include page="../layout/header.jsp"/>
 
 <section style="padding: 40px 0;">
     <div class="container">
-        
+
         <div>
             <span style="color: var(--primary); font-weight: 700; font-size: 14px; text-transform: uppercase;">Shopping Basket</span>
             <h2 style="font-size: 32px; margin-bottom: 20px;">Your Grocery Cart</h2>
@@ -18,20 +23,17 @@
         </c:if>
 
         <div class="cart-grid">
-            <!-- Left: Cart Items container (populated dynamically by main.js) -->
             <div id="cart-items-container" class="cart-items-card">
-                <!-- Fallback/Loading -->
                 <div style="text-align: center; padding: 40px;">
                     <i class="fas fa-spinner fa-spin" style="font-size: 32px; color: var(--primary); margin-bottom: 16px;"></i>
                     <p>Loading your fresh basket...</p>
                 </div>
             </div>
-            
-            <!-- Right: Order Summary & Checkout Form -->
+
             <div id="cart-summary-container" style="display: none;">
                 <div style="background-color: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow-md); position: sticky; top: 100px;">
                     <h3 style="font-size: 20px; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 20px;">Order Summary</h3>
-                    
+
                     <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; font-size: 14px; font-weight: 600;">
                         <div style="display: flex; justify-content: space-between;">
                             <span style="color: var(--text-muted);">Basket Subtotal</span>
@@ -49,15 +51,13 @@
                             <span id="summary-total" style="color: var(--primary);">Rs. 0.00</span>
                         </div>
                     </div>
-                    
-                    <!-- Checkout details form -->
+
                     <form action="${pageContext.request.contextPath}/cart/checkout" method="POST" style="display: flex; flex-direction: column; gap: 16px;">
-                        <!-- Hidden inputs for LocalStorage payload sync -->
                         <input type="hidden" id="checkout-items-json" name="itemsJson">
                         <input type="hidden" id="checkout-total" name="totalAmount">
 
                         <h4 style="font-size: 14px; font-weight: 700; text-transform: uppercase; border-top: 1px solid var(--border); padding-top: 20px; margin-bottom: 4px;">Delivery details</h4>
-                        
+
                         <c:choose>
                             <c:when test="${not empty sessionScope.currentUser}">
                                 <c:choose>
@@ -85,7 +85,7 @@
                                                 <option value="ESEWA">eSewa Mobile Wallet</option>
                                             </select>
                                         </div>
-                                        
+
                                         <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 10px;">
                                             <i class="fas fa-shopping-basket"></i> Place Order
                                         </button>

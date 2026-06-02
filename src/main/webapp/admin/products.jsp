@@ -227,9 +227,12 @@
 
                             <td>
                                 <img
-                                        src="<c:out value="${prod.imageUrl}"/>"
-                                        alt="<c:out value="${prod.name}"/>"
-                                        style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border);">
+                                        src="${pageContext.request.contextPath}/images/${prod.imageUrl}"
+                                        alt="${prod.name}"
+                                        style="width:50px;height:50px;object-fit:cover;border-radius:8px;border:1px solid #ddd;">
+
+                                <br>
+                                ${prod.imageUrl}
                             </td>
 
                             <td style="font-weight: 700;">
@@ -348,7 +351,7 @@
 
         <form id="product-form"
               action="${pageContext.request.contextPath}/admin/products/save"
-              method="POST">
+              method="POST" enctype="multipart/form-data">
 
             <!-- Hidden Product ID -->
             <input type="hidden" id="prod-id" name="id">

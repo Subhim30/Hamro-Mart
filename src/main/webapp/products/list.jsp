@@ -73,7 +73,8 @@
                         <c:forEach var="prod" items="${products}">
                             <div class="product-card">
                                 <div class="product-img-wrapper">
-                                    <img src="<c:out value="${prod.imageUrl}"/>" alt="<c:out value="${prod.name}"/>">
+                                    <img src="${pageContext.request.contextPath}/images/${prod.imageUrl}"
+                                         alt="<c:out value="${prod.name}"/>">
                                     <span class="product-badge">
                                         <c:choose>
                                             <c:when test="${prod.stock > 0}">In Stock</c:when>
@@ -98,7 +99,7 @@
                                                         data-id="${prod.id}"
                                                         data-name="${prod.name}"
                                                         data-price="${prod.price}"
-                                                        data-image="${prod.imageUrl}"
+                                                        data-image="${pageContext.request.contextPath}/images/${product.imageUrl}"
                                                         data-unit="${prod.unit}"
                                                         style="width: 40px; height: 40px; padding: 0; border-radius: 50%;">
                                                     <i class="fas fa-shopping-cart"></i>

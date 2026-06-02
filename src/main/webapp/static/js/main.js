@@ -38,6 +38,7 @@ function updateThemeIcon(theme) {
 
 // Shopping Cart Management (LocalStorage-based)
 let cart = [];
+let isLoggedIn = false;
 
 function initCart() {
     // Load cart items
@@ -50,7 +51,7 @@ function initCart() {
         }
     }
     // Check if user is logged in
-    const isLoggedIn =
+   isLoggedIn =
         document.body.getAttribute('data-logged-in') === 'true';
 
     updateCartBadge();
@@ -78,13 +79,15 @@ function initCart() {
 
 function addToCart(id, name, price, image, unit) {
 
-    // Prevent guest users
+    console.log("Add To Cart Clicked");
+    console.log("Logged In:", isLoggedIn);
+
     if (!isLoggedIn) {
 
         alert("Please login first to add items to cart!");
 
-        // Redirect to login page
-        window.location.href = "/Hamro-Mart/auth/login.jsp";
+        window.location.href =
+            document.body.getAttribute('data-context-path') + '/auth/login';
 
         return;
     }
@@ -95,18 +98,21 @@ function addToCart(id, name, price, image, unit) {
         existing.quantity += 1;
     } else {
         cart.push({
-            id,
-            name,
-            price,
-            image,
-            unit,
+            id: id,
+            name: name,
+            price: price,
+            image: image,
+            unit: unit,
             quantity: 1
         });
     }
 
     saveCart();
     updateCartBadge();
-    showToast(`${name} added to cart!`);
+
+    console.log(cart);
+
+    showToast(name + " added to cart!");
 }
 
 function updateCartBadge() {
@@ -140,7 +146,7 @@ function renderCartPage() {
                 <i class="fas fa-shopping-basket" style="font-size: 64px; color: var(--text-muted); margin-bottom: 20px;"></i>
                 <h3>Your cart is empty</h3>
                 <p style="color: var(--text-muted); margin-bottom: 24px;">Add some fresh items to get started!</p>
-                <a href="products" class="btn btn-primary">Shop Now</a>
+                <a href="${contextPath}/products" class="btn btn-primary">Shop Now</a>
             </div>
         `;
         summaryContainer.style.display = 'none';

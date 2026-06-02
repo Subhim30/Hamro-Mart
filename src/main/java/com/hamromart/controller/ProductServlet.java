@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/products", "/products/detail", "/products/search"})
+@WebServlet(urlPatterns = {"/products","/product", "/products/detail", "/products/search"})
 public class ProductServlet extends HttpServlet {
     private final ProductDAO productDAO = new ProductDAOImpl();
     private final CategoryDAO categoryDAO = new CategoryDAOImpl();

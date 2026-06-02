@@ -16,12 +16,23 @@
             <span><c:out value="${product.name}"/></span>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: flex-start;">
-            <!-- Left: Product Image -->
-            <div>
-                <img src="<c:out value="${product.imageUrl}"/>" alt="<c:out value="${product.name}"/>" 
-                     style="width: 100%; max-height: 480px; object-fit: cover; border-radius: 20px; border: 1px solid var(--border); box-shadow: var(--shadow-md);">
-            </div>
+        <!-- Left: Product Image -->
+        <div style="display:flex; justify-content:center; align-items:flex-start;">
+            <img
+                    src="${pageContext.request.contextPath}/images/${product.imageUrl}"
+                    alt="${product.name}"
+                    style="
+            width: 100%;
+            max-width: 450px;
+            height: 350px;
+            object-fit: contain;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+            background: white;
+            padding: 15px;
+        ">
+        </div>
             
             <!-- Right: Product Information -->
             <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -69,7 +80,7 @@
                                     data-id="${product.id}"
                                     data-name="${product.name}"
                                     data-price="${product.price}"
-                                    data-image="${product.imageUrl}"
+                                    data-image="${pageContext.request.contextPath}/images/${product.imageUrl}"
                                     data-unit="${product.unit}"
                                     style="padding: 14px 40px; font-size: 16px; border-radius: var(--radius);">
                                 <i class="fas fa-shopping-cart"></i> Add to Basket
@@ -87,4 +98,4 @@
     </div>
 </section>
 
-<jsp:include page="../layout/header.jsp"/>
+<jsp:include page="../layout/footer.jsp"/>
